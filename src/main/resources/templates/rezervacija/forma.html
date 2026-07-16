@@ -42,9 +42,9 @@
             <input type="date" id="datumDo" th:field="*{datumDo}" required>
         </div>
 
-        <div class="form-group">
-            <label for="ukupnaCena">Ukupna cena</label>
-            <input type="number" step="0.01" id="ukupnaCena" th:field="*{ukupnaCena}" required>
+        <div class="form-group" th:if="${rezervacija.id != null}">
+            <label>Ukupna cena</label>
+            <p th:text="${rezervacija.ukupnaCena} + ' RSD'">0.00 RSD</p>
         </div>
 
         <button type="submit" class="btn btn-primary">Sacuvaj</button>
