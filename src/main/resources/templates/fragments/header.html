@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragment</title>
+</head>
+<body>
+<header th:fragment="header" class="app-header">
+    <h1><a th:href="@{/}">AutoNaj</a></h1>
+    <nav>
+        <a th:href="@{/vozila}">Vozila</a>
+        <a th:href="@{/marke}">Marke</a>
+        <a th:href="@{/kategorije}">Kategorije</a>
+        <a th:href="@{/klijenti}">Klijenti</a>
+        <a th:href="@{/rezervacije}">Rezervacije</a>
+    </nav>
+</header>
+</body>
+</html>

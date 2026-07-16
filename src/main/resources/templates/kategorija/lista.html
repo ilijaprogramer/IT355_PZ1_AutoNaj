@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategorije — AutoNaj</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2>Kategorije</h2>
+    <a th:href="@{/kategorije/novo}" class="btn btn-primary">Dodaj novu kategoriju</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="kategorija : ${kategorije}">
+            <td th:text="${kategorija.naziv}"></td>
+            <td th:text="${kategorija.opis}"></td>
+            <td>
+                <a th:href="@{/kategorije/izmeni/{id}(id=${kategorija.id})}" class="btn btn-edit">Izmeni</a>
+                <a th:href="@{/kategorije/obrisi/{id}(id=${kategorija.id})}" class="btn btn-delete"
+                   onclick="return confirm('Obrisati kategoriju?')">Obrisi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

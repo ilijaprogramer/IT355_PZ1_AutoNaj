@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezervacije — AutoNaj</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2>Rezervacije</h2>
+    <a th:href="@{/rezervacije/novo}" class="btn btn-primary">Dodaj novu rezervaciju</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Vozilo</th>
+            <th>Klijent</th>
+            <th>Datum od</th>
+            <th>Datum do</th>
+            <th>Ukupna cena</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rezervacija : ${rezervacije}">
+            <td th:text="${rezervacija.vozilo.model} + ' (' + ${rezervacija.vozilo.registracija} + ')'"></td>
+            <td th:text="${rezervacija.klijent.ime} + ' ' + ${rezervacija.klijent.prezime}"></td>
+            <td th:text="${rezervacija.datumOd}"></td>
+            <td th:text="${rezervacija.datumDo}"></td>
+            <td th:text="${rezervacija.ukupnaCena}"></td>
+            <td>
+                <a th:href="@{/rezervacije/izmeni/{id}(id=${rezervacija.id})}" class="btn btn-edit">Izmeni</a>
+                <a th:href="@{/rezervacije/obrisi/{id}(id=${rezervacija.id})}" class="btn btn-delete"
+                   onclick="return confirm('Obrisati rezervaciju?')">Obrisi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

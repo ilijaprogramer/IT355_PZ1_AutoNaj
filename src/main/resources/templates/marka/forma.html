@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${marka.id == null} ? 'Nova marka' : 'Izmena marke'">Forma</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2 th:text="${marka.id == null} ? 'Dodaj novu marku' : 'Izmeni marku'"></h2>
+
+    <form th:action="@{/marke/sacuvaj}" th:object="${marka}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label for="naziv">Naziv</label>
+            <input type="text" id="naziv" th:field="*{naziv}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sacuvaj</button>
+        <a th:href="@{/marke}" class="btn">Otkazi</a>
+    </form>
+</main>
+</body>
+</html>

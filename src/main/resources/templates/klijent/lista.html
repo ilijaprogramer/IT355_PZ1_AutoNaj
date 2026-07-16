@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Klijenti — AutoNaj</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2>Klijenti</h2>
+    <a th:href="@{/klijenti/novo}" class="btn btn-primary">Dodaj novog klijenta</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="klijent : ${klijenti}">
+            <td th:text="${klijent.ime}"></td>
+            <td th:text="${klijent.prezime}"></td>
+            <td th:text="${klijent.email}"></td>
+            <td th:text="${klijent.telefon}"></td>
+            <td>
+                <a th:href="@{/klijenti/izmeni/{id}(id=${klijent.id})}" class="btn btn-edit">Izmeni</a>
+                <a th:href="@{/klijenti/obrisi/{id}(id=${klijent.id})}" class="btn btn-delete"
+                   onclick="return confirm('Obrisati klijenta?')">Obrisi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

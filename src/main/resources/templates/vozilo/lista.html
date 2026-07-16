@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vozila — AutoNaj</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2>Vozila</h2>
+    <a th:href="@{/vozila/novo}" class="btn btn-primary">Dodaj novo vozilo</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Model</th>
+            <th>Registracija</th>
+            <th>Cena po danu</th>
+            <th>Dostupno</th>
+            <th>Marka</th>
+            <th>Kategorija</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vozilo : ${vozila}">
+            <td th:text="${vozilo.model}"></td>
+            <td th:text="${vozilo.registracija}"></td>
+            <td th:text="${vozilo.cenaPoDanu}"></td>
+            <td th:text="${vozilo.dostupno} ? 'Da' : 'Ne'"></td>
+            <td th:text="${vozilo.marka.naziv}"></td>
+            <td th:text="${vozilo.kategorija.naziv}"></td>
+            <td>
+                <a th:href="@{/vozila/izmeni/{id}(id=${vozilo.id})}" class="btn btn-edit">Izmeni</a>
+                <a th:href="@{/vozila/obrisi/{id}(id=${vozilo.id})}" class="btn btn-delete"
+                   onclick="return confirm('Obrisati vozilo?')">Obrisi</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

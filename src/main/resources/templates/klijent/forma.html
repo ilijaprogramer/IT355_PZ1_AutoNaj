@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="sr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${klijent.id == null} ? 'Novi klijent' : 'Izmena klijenta'">Forma</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h2 th:text="${klijent.id == null} ? 'Dodaj novog klijenta' : 'Izmeni klijenta'"></h2>
+
+    <form th:action="@{/klijenti/sacuvaj}" th:object="${klijent}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label for="ime">Ime</label>
+            <input type="text" id="ime" th:field="*{ime}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="prezime">Prezime</label>
+            <input type="text" id="prezime" th:field="*{prezime}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="telefon">Telefon</label>
+            <input type="text" id="telefon" th:field="*{telefon}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sacuvaj</button>
+        <a th:href="@{/klijenti}" class="btn">Otkazi</a>
+    </form>
+</main>
+</body>
+</html>
