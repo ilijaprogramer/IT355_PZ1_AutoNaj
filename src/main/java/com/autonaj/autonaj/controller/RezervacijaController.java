@@ -2,6 +2,7 @@ package com.autonaj.autonaj.controller;
 
 import com.autonaj.autonaj.model.Rezervacija;
 import com.autonaj.autonaj.service.KlijentService;
+import com.autonaj.autonaj.service.KursService;
 import com.autonaj.autonaj.service.RezervacijaService;
 import com.autonaj.autonaj.service.VoziloService;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/rezervacije")
 public class RezervacijaController {
@@ -20,17 +25,29 @@ public class RezervacijaController {
     private final RezervacijaService rezervacijaService;
     private final VoziloService voziloService;
     private final KlijentService klijentService;
+    private final KursService kursService;
 
     public RezervacijaController(RezervacijaService rezervacijaService, VoziloService voziloService,
-                                  KlijentService klijentService) {
+                                  KlijentService klijentService, KursService kursService) {
         this.rezervacijaService = rezervacijaService;
         this.voziloService = voziloService;
         this.klijentService = klijentService;
+        this.kursService = kursService;
     }
 
     @GetMapping
     public String lista(Model model) {
-        model.addAttribute("rezervacije", rezervacijaService.findAll());
+        List<Rezervacija> rezervacije = rezervacijaService.findAll();
+        double kurs = kursService.dobaviKurs();
+
+        Map<Long, Double> ukupneCeneUEur = new HashMap<>();
+        for (Rezervacija rezervacija : rezervacije) {
+            ukupneCeneUEur.put(rezervacija.getId(), kursService.konvertujURSDuEUR(rezervacija.getUkupnaCena(), kurs));
+        }
+
+        model.addAttribute("rezervacije", rezervacije);
+        model.addAttribute("ukupneCeneUEur", ukupneCeneUEur);
+        model.addAttribute("kurs", kurs);
         return "rezervacija/lista";
     }
 

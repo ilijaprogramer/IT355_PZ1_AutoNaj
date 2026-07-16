@@ -36,9 +36,9 @@ public class DataStore {
         kategorije.add(suv);
         kategorije.add(limuzina);
 
-        vozila.add(new Vozilo(1L, "Golf 8", "NS-123-AB", 35.0, true, vw, kompakt));
-        vozila.add(new Vozilo(2L, "RAV4", "NS-456-CD", 55.0, true, toyota, suv));
-        vozila.add(new Vozilo(3L, "Serija 5", "NS-789-EF", 80.0, false, bmw, limuzina));
+        vozila.add(new Vozilo(1L, "Golf 8", "NS-123-AB", 3500.00, true, vw, kompakt));
+        vozila.add(new Vozilo(2L, "RAV4", "NS-456-CD", 5500.00, true, toyota, suv));
+        vozila.add(new Vozilo(3L, "Serija 5", "NS-789-EF", 8000.00, false, bmw, limuzina));
 
         klijenti.add(new Klijent(1L, "Petar", "Petrovic", "petar.petrovic@example.com", "0601234567"));
         klijenti.add(new Klijent(2L, "Ana", "Anic", "ana.anic@example.com", "0657654321"));

@@ -28,7 +28,7 @@
         <tr th:each="vozilo : ${vozila}">
             <td th:text="${vozilo.model}"></td>
             <td th:text="${vozilo.registracija}"></td>
-            <td th:text="${vozilo.cenaPoDanu}"></td>
+            <td th:text="${vozilo.cenaPoDanu} + ' RSD / ' + ${cenePoDanuUEur.get(vozilo.id)} + ' EUR'"></td>
             <td th:text="${vozilo.dostupno} ? 'Da' : 'Ne'"></td>
             <td th:text="${vozilo.marka.naziv}"></td>
             <td th:text="${vozilo.kategorija.naziv}"></td>

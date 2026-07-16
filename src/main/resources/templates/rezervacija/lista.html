@@ -29,7 +29,7 @@
             <td th:text="${rezervacija.klijent.ime} + ' ' + ${rezervacija.klijent.prezime}"></td>
             <td th:text="${rezervacija.datumOd}"></td>
             <td th:text="${rezervacija.datumDo}"></td>
-            <td th:text="${rezervacija.ukupnaCena}"></td>
+            <td th:text="${rezervacija.ukupnaCena} + ' RSD / ' + ${ukupneCeneUEur.get(rezervacija.id)} + ' EUR'"></td>
             <td>
                 <a th:href="@{/rezervacije/izmeni/{id}(id=${rezervacija.id})}" class="btn btn-edit">Izmeni</a>
                 <a th:href="@{/rezervacije/obrisi/{id}(id=${rezervacija.id})}" class="btn btn-delete"

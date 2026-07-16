@@ -2,6 +2,7 @@ package com.autonaj.autonaj.controller;
 
 import com.autonaj.autonaj.model.Vozilo;
 import com.autonaj.autonaj.service.KategorijaService;
+import com.autonaj.autonaj.service.KursService;
 import com.autonaj.autonaj.service.MarkaService;
 import com.autonaj.autonaj.service.VoziloService;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/vozila")
 public class VoziloController {
@@ -20,17 +25,29 @@ public class VoziloController {
     private final VoziloService voziloService;
     private final MarkaService markaService;
     private final KategorijaService kategorijaService;
+    private final KursService kursService;
 
     public VoziloController(VoziloService voziloService, MarkaService markaService,
-                             KategorijaService kategorijaService) {
+                             KategorijaService kategorijaService, KursService kursService) {
         this.voziloService = voziloService;
         this.markaService = markaService;
         this.kategorijaService = kategorijaService;
+        this.kursService = kursService;
     }
 
     @GetMapping
     public String lista(Model model) {
-        model.addAttribute("vozila", voziloService.findAll());
+        List<Vozilo> vozila = voziloService.findAll();
+        double kurs = kursService.dobaviKurs();
+
+        Map<Long, Double> cenePoDanuUEur = new HashMap<>();
+        for (Vozilo vozilo : vozila) {
+            cenePoDanuUEur.put(vozilo.getId(), kursService.konvertujURSDuEUR(vozilo.getCenaPoDanu(), kurs));
+        }
+
+        model.addAttribute("vozila", vozila);
+        model.addAttribute("cenePoDanuUEur", cenePoDanuUEur);
+        model.addAttribute("kurs", kurs);
         return "vozilo/lista";
     }
 
